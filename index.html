@@ -377,8 +377,8 @@
           <div class="lg:col-span-4 space-y-6">
             <div class="glassmorphism rounded-xl p-6 border-brand-border/50 space-y-4">
               <h4 class="text-lg font-bold text-white border-b border-brand-border pb-3 flex items-center gap-2">
-                <i class="fa-solid fa-circle-plus text-brand-gold"></i>
-                إضافة جلسة تسليم جديدة
+                <i class="fa-solid fa-circle-plus text-brand-gold" id="formSubmitIcon"></i>
+                <span id="formSubmitTitle">إضافة جلسة تسليم جديدة</span>
               </h4>
               <form id="createSessionForm" onsubmit="handleCreateSession(event)" class="space-y-4">
                 <div>
@@ -406,10 +406,15 @@
                   </select>
                 </div>
                 
-                <button type="submit" class="w-full py-3 rounded-lg gold-gradient-bg text-brand-obsidian font-bold text-xs hover:shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all flex justify-center items-center">
-                  <span id="createBtnText">تسجيل الجلسة</span>
-                  <span id="createBtnSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
-                </button>
+                <div class="flex flex-col gap-2">
+                  <button type="submit" class="w-full py-3 rounded-lg gold-gradient-bg text-brand-obsidian font-bold text-xs hover:shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all flex justify-center items-center">
+                    <span id="createBtnText">تسجيل الجلسة</span>
+                    <span id="createBtnSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
+                  </button>
+                  <button type="button" id="adminCancelEditBtn" onclick="cancelEditSession()" class="hidden w-full py-2.5 rounded-lg border border-brand-border hover:bg-brand-darkgray/30 text-slate-300 text-xs font-semibold transition-all">
+                    إلغاء التعديل
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -633,6 +638,7 @@
     let adminPasscodeToken = '';
     let adminDashboardData = null;
     let activeLightboxIndex = 0;
+    let editingOldInvoice = null; // Track invoice being edited
 
     // Helper for API calls via GET to prevent preflight CORS problems
     function callApi(action, params = {}) {
@@ -1118,9 +1124,10 @@
             <td class="py-3 px-2 font-mono">${c.mobile}</td>
             <td class="py-3 px-2 font-mono text-brand-gold">${c.invoice}</td>
             <td class="py-3 px-2"><span class="px-2 py-0.5 rounded text-[10px] ${c.status === 'جاهز للتحميل' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}">${c.status}</span></td>
-            <td class="py-3 px-2 flex gap-2">
+            <td class="py-3 px-2 flex flex-wrap gap-2">
               <a href="${c.folderUrl}" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square"></i> درايف</a>
-              <button onclick="adminDeleteSessionConfirm('${c.invoice}')" class="text-red-400 hover:text-red-300"><i class="fa-regular fa-trash-can"></i> حذف</button>
+              <button onclick="startEditSession('${c.name.replace(/'/g, "\\'")}', '${c.mobile}', '${c.invoice}', '${c.folderUrl.replace(/'/g, "\\'")}', '${c.status}')" class="text-brand-gold hover:text-brand-goldHover hover:underline"><i class="fa-regular fa-pen-to-square"></i> تعديل</button>
+              <button onclick="adminDeleteSessionConfirm('${c.invoice}')" class="text-red-400 hover:text-red-300 hover:underline"><i class="fa-regular fa-trash-can"></i> حذف</button>
             </td>
           `;
           cTable.appendChild(row);
@@ -1183,21 +1190,32 @@
       createText.classList.add('hidden');
       createSpinner.classList.remove('hidden');
       
-      callApi('adminCreateSession', {
+      const apiAction = editingOldInvoice ? 'adminUpdateSession' : 'adminCreateSession';
+      const apiParams = {
         passcode: adminPasscodeToken,
         name,
         mobile,
         invoice,
         folderUrl,
         status
-      })
+      };
+      
+      if (editingOldInvoice) {
+        apiParams.oldInvoice = editingOldInvoice;
+      }
+      
+      callApi(apiAction, apiParams)
       .then(response => {
         createText.classList.remove('hidden');
         createSpinner.classList.add('hidden');
         
         if (response.success) {
           showToast(response.message, 'success');
-          document.getElementById('createSessionForm').reset();
+          if (editingOldInvoice) {
+            cancelEditSession();
+          } else {
+            document.getElementById('createSessionForm').reset();
+          }
           refreshDashboard();
         } else {
           showToast(response.message || "حدث خطأ غير متوقع", 'error');
@@ -1208,6 +1226,34 @@
         createSpinner.classList.add('hidden');
         showToast("خطأ في الاتصال: " + err.message, 'error');
       });
+    }
+
+    function startEditSession(name, mobile, invoice, folderUrl, status) {
+      editingOldInvoice = invoice;
+      
+      document.getElementById('adminClientName').value = name;
+      document.getElementById('adminClientMobile').value = mobile;
+      document.getElementById('adminClientInvoice').value = invoice;
+      document.getElementById('adminClientFolderUrl').value = folderUrl;
+      document.getElementById('adminClientStatus').value = status;
+      
+      document.getElementById('formSubmitTitle').innerText = "تعديل بيانات العميل";
+      document.getElementById('formSubmitIcon').className = "fa-solid fa-user-pen text-brand-gold";
+      document.getElementById('createBtnText').innerText = "حفظ التعديلات";
+      document.getElementById('adminCancelEditBtn').classList.remove('hidden');
+      
+      document.getElementById('createSessionForm').scrollIntoView({ behavior: 'smooth' });
+      showToast(`جاري تعديل بيانات العميل: ${name}`, 'info');
+    }
+
+    function cancelEditSession() {
+      editingOldInvoice = null;
+      document.getElementById('createSessionForm').reset();
+      
+      document.getElementById('formSubmitTitle').innerText = "إضافة جلسة تسليم جديدة";
+      document.getElementById('formSubmitIcon').className = "fa-solid fa-circle-plus text-brand-gold";
+      document.getElementById('createBtnText').innerText = "تسجيل الجلسة";
+      document.getElementById('adminCancelEditBtn').classList.add('hidden');
     }
 
     function adminDeleteSessionConfirm(invoice) {
