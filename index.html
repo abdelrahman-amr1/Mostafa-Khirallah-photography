@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mostafa Khirallah | معرض تسليم الصور الاحترافي</title>
   
+  <!-- Favicon (Camera Lens SVG) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='none' stroke='%23d4af37' stroke-width='5'/%3E%3Ccircle cx='50' cy='50' r='32' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='20' fill='%23d4af37'/%3E%3Ccircle cx='43' cy='43' r='4' fill='%23ffffff' opacity='0.8'/%3E%3Ccircle cx='55' cy='55' r='2' fill='%23ffffff' opacity='0.4'/%3E%3Cpath d='M22 22l8 8M78 22l-8 8M22 78l8-8M78 78l-8-8' stroke='%23d4af37' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E">
+  
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -138,8 +141,15 @@
   <header class="sticky top-0 z-40 w-full glassmorphism border-b border-brand-border/40 py-4 px-6 transition-all duration-300">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <a href="#" onclick="switchTab('home')" class="flex items-center space-x-3 space-x-reverse group">
-        <div class="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center bg-brand-darkgray text-brand-gold group-hover:border-brand-gold transition-colors duration-300">
-          <i class="fa-solid fa-camera text-sm"></i>
+        <div class="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center bg-brand-darkgray group-hover:border-brand-gold transition-colors duration-300 overflow-hidden p-1.5">
+          <svg viewBox="0 0 100 100" class="w-full h-full text-brand-gold stroke-brand-gold fill-current">
+            <circle cx="50" cy="50" r="44" fill="none" stroke="#d4af37" stroke-width="6"/>
+            <circle cx="50" cy="50" r="28" fill="none" stroke="#d4af37" stroke-width="3"/>
+            <circle cx="50" cy="50" r="16" fill="#d4af37"/>
+            <circle cx="43" cy="43" r="4" fill="#ffffff" opacity="0.8"/>
+            <circle cx="55" cy="55" r="2" fill="#ffffff" opacity="0.4"/>
+            <path d="M22 22l8 8M78 22l-8 8M22 78l8-8M78 78l-8-8" stroke="#d4af37" stroke-width="3" stroke-linecap="round"/>
+          </svg>
         </div>
         <div>
           <h1 class="font-serif font-bold text-lg tracking-wide uppercase gold-gradient-text">MOSTAFA KHIRALLAH</h1>
