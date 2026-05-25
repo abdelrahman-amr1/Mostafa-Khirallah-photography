@@ -153,10 +153,8 @@
         <a href="#" onclick="switchTab('contact')" class="nav-link text-brand-textMuted hover:text-brand-gold pb-1 px-1 transition-all">تواصل معي</a>
       </nav>
 
+      <!-- Admin entry hidden from clients, access via #mosadmintafa route -->
       <div class="flex items-center space-x-4 space-x-reverse">
-        <button onclick="switchTab('admin-login')" class="text-xs text-brand-textMuted hover:text-brand-gold transition-colors px-3 py-1.5 rounded-full border border-brand-border hover:border-brand-gold/50 bg-brand-darkgray/40">
-          <i class="fa-solid fa-lock-open ml-1.5"></i>لوحة التحكم
-        </button>
       </div>
     </div>
   </header>
@@ -1292,6 +1290,20 @@
         e.target.reset();
       }, 1500);
     }
+
+    // Secret route for admin login (/index.html#mosadmintafa)
+    function checkSecretRoute() {
+      const hash = window.location.hash;
+      if (hash === '#mosadmintafa' || hash === '#/mosadmintafa') {
+        switchTab('admin-login');
+        // Clear hash to hide it from URL bar after opening
+        history.replaceState(null, null, ' ');
+        showToast('مرحباً مصطفى خير الله، أدخل رمز المرور السري للدخول.', 'info');
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', checkSecretRoute);
+    window.addEventListener('hashchange', checkSecretRoute);
   </script>
 </body>
 </html>
