@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mostafa Khirallah | معرض تسليم الصور الاحترافي</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Cairo:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              obsidian: '#08080a',
+              darkgray: '#0f0f12',
+              card: 'rgba(18, 18, 22, 0.7)',
+              gold: '#d4af37',
+              goldHover: '#e5c158',
+              goldLight: '#f3e5ab',
+              accent: '#b28e24',
+              border: '#1f1f26',
+              textMuted: '#9ca3af'
+            }
+          },
+          fontFamily: {
+            sans: ['Cairo', 'Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Playfair Display', 'serif']
+          },
+          animation: {
+            'shimmer': 'shimmer 1.5s infinite linear',
+            'pulse-gold': 'pulseGold 2s infinite ease-in-out',
+            'fade-in': 'fadeIn 0.4s ease-out forwards',
+            'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards'
+          },
+          keyframes: {
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' }
+            },
+            pulseGold: {
+              '0%, 100%': { transform: 'scale(1)', boxShadow: '0 0 0 0 rgba(212, 175, 55, 0.4)' },
+              '50%': { transform: 'scale(1.03)', boxShadow: '0 0 0 10px rgba(212, 175, 55, 0)' }
+            },
+            fadeIn: {
+              '0%': { opacity: '0' },
+              '100%': { opacity: '1' }
+            },
+            slideUp: {
+              '0%': { transform: 'translateY(20px)', opacity: '0' },
+              '100%': { transform: 'translateY(0)', opacity: '1' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .glassmorphism {
+        background: rgba(15, 15, 18, 0.65);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(212, 175, 55, 0.08);
+      }
+      .glassmorphism-light {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .gold-gradient-text {
+        background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #b28e24 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .gold-gradient-bg {
+        background: linear-gradient(135deg, #e5c158 0%, #d4af37 50%, #b28e24 100%);
+      }
+      .no-select {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+  </style>
+
+  <style>
+    img {
+      -webkit-user-drag: none;
+      user-drag: none;
+    }
+    
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #08080a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2a2a33;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #d4af37;
+    }
+
+    .skeleton {
+      background: linear-gradient(90deg, #121216 25%, #1d1d24 50%, #121216 75%);
+      background-size: 200% 100%;
+    }
+  </style>
+</head>
+<body class="bg-brand-obsidian text-slate-100 font-sans selection:bg-brand-gold selection:text-brand-obsidian min-h-screen flex flex-col justify-between overflow-x-hidden no-select">
+
+  <!-- API CONFIGURATION WARNING BANNER -->
+  <div id="apiConfigWarning" class="bg-red-950/80 border-b border-red-500/30 text-red-200 px-6 py-3.5 text-center text-xs font-semibold flex items-center justify-center gap-3 hidden z-50 sticky top-0">
+    <i class="fa-solid fa-triangle-exclamation text-base text-red-400 animate-pulse"></i>
+    <span>موقع الويب غير متصل بقاعدة البيانات بعد! يرجى إضافة رابط الـ API الخاص بجوجل (Web App URL) في السطر 562 بملف <code>index.html</code> لتفعيل البوابة.</span>
+  </div>
+
+  <!-- TOP HEADER NAV -->
+  <header class="sticky top-0 z-40 w-full glassmorphism border-b border-brand-border/40 py-4 px-6 transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="#" onclick="switchTab('home')" class="flex items-center space-x-3 space-x-reverse group">
+        <div class="w-10 h-10 rounded-full border border-brand-gold/30 flex items-center justify-center bg-brand-darkgray text-brand-gold group-hover:border-brand-gold transition-colors duration-300">
+          <i class="fa-solid fa-camera text-sm"></i>
+        </div>
+        <div>
+          <h1 class="font-serif font-bold text-lg tracking-wide uppercase gold-gradient-text">MOSTAFA KHIRALLAH</h1>
+          <p class="text-[10px] text-brand-textMuted tracking-[0.2em] -mt-1 font-mono">P H O T O G R A P H Y</p>
+        </div>
+      </a>
+      
+      <nav class="hidden md:flex items-center space-x-8 space-x-reverse text-sm font-medium">
+        <a href="#" onclick="switchTab('home')" class="nav-link text-brand-gold border-b-2 border-brand-gold pb-1 px-1 transition-all">الرئيسية</a>
+        <a href="#" onclick="switchTab('client-login')" class="nav-link text-brand-textMuted hover:text-brand-gold pb-1 px-1 transition-all">بوابة العملاء</a>
+        <a href="#" onclick="switchTab('contact')" class="nav-link text-brand-textMuted hover:text-brand-gold pb-1 px-1 transition-all">تواصل معي</a>
+      </nav>
+
+      <div class="flex items-center space-x-4 space-x-reverse">
+        <button onclick="switchTab('admin-login')" class="text-xs text-brand-textMuted hover:text-brand-gold transition-colors px-3 py-1.5 rounded-full border border-brand-border hover:border-brand-gold/50 bg-brand-darkgray/40">
+          <i class="fa-solid fa-lock-open ml-1.5"></i>لوحة التحكم
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER WITH TABS -->
+  <main class="flex-grow w-full max-w-7xl mx-auto px-4 md:px-6 py-8 relative">
+
+    <!-- VIEW 1: HOME LANDING -->
+    <section id="tab-home" class="tab-content animate-fade-in block">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-8 lg:py-16">
+        <div class="lg:col-span-7 space-y-6 text-right">
+          <span class="text-brand-gold font-mono tracking-widest text-xs uppercase bg-brand-gold/10 px-3 py-1.5 rounded-full border border-brand-gold/20">📸 مصور فوتوغرافي محترف</span>
+          <h2 class="text-4xl md:text-6xl font-serif font-black leading-tight text-white">
+            نخلّد لحظاتكم الجميلة <br>
+            <span class="gold-gradient-text">بلمسة سينمائية ساحرة</span>
+          </h2>
+          <p class="text-brand-textMuted text-base md:text-lg leading-relaxed max-w-xl">
+            أهلاً بكم في المنصة الخاصة بالمصور مصطفى خير الله. هنا نقوم بتسليم صوركم الخاصة بأعلى دقة وبشكل خاص وآمن تماماً، دون الحاجة للتعامل مع روابط معقدة. أدخل رقم هاتفك ورقم الفاتورة واستلم سحر لقطاتك.
+          </p>
+          <div class="flex flex-col sm:flex-row items-center gap-4 pt-4">
+            <button onclick="switchTab('client-login')" class="w-full sm:w-auto px-8 py-4 rounded-xl gold-gradient-bg text-brand-obsidian font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 text-center">
+              <i class="fa-solid fa-images ml-2"></i> الدخول لمعرض الصور الخاص بي
+            </button>
+            <button onclick="switchTab('contact')" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-brand-border bg-brand-darkgray/40 text-slate-200 font-semibold hover:border-brand-gold/50 transition-all duration-300 text-center">
+              تواصل لحجز جلسة تصوير
+            </button>
+          </div>
+        </div>
+        
+        <div class="lg:col-span-5 relative flex justify-center">
+          <div class="absolute -inset-1 gold-gradient-bg rounded-2xl opacity-15 blur-2xl"></div>
+          <div class="relative w-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden border border-brand-border/60 shadow-2xl glassmorphism p-3">
+            <div class="w-full h-full rounded-xl overflow-hidden relative group">
+              <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200" alt="Camera lens" class="w-full h-full object-cover object-center filter grayscale contrast-125 transition-transform duration-700 group-hover:scale-110">
+              <div class="absolute inset-0 bg-gradient-to-t from-brand-obsidian via-brand-obsidian/20 to-transparent"></div>
+              <div class="absolute bottom-6 right-6 left-6 text-right">
+                <p class="text-xs text-brand-gold font-mono">NEW SESSION PREVIEW</p>
+                <h4 class="text-xl font-serif font-bold text-white mt-1">قصص ترويها العدسة</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: CLIENT LOGIN PORTAL -->
+    <section id="tab-client-login" class="tab-content animate-fade-in hidden py-12">
+      <div class="max-w-md mx-auto relative">
+        <div class="absolute -inset-1.5 gold-gradient-bg rounded-3xl opacity-10 blur-xl"></div>
+        <div class="relative glassmorphism rounded-2xl p-8 border border-brand-border/60 shadow-2xl">
+          <div class="text-center space-y-3 mb-8">
+            <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center bg-brand-darkgray mx-auto text-brand-gold shadow-lg shadow-brand-gold/10">
+              <i class="fa-solid fa-circle-user text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-serif text-white">بوابة تسليم الصور للعملاء</h3>
+            <p class="text-sm text-brand-textMuted">أدخل رقم الموبايل المسجل ورقم الفاتورة لعرض وتنزيل صورك</p>
+          </div>
+
+          <form id="loginForm" onsubmit="handleClientLogin(event)" class="space-y-6">
+            <div>
+              <label for="loginMobile" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">رقم الموبايل</label>
+              <div class="relative">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-textMuted/60"><i class="fa-solid fa-phone text-sm"></i></span>
+                <input type="tel" id="loginMobile" required placeholder="مثال: 01012345678" class="w-full bg-brand-darkgray/60 border border-brand-border/80 focus:border-brand-gold rounded-xl py-3.5 pr-11 pl-4 text-slate-100 placeholder:text-brand-textMuted/40 focus:outline-none focus:ring-1 focus:ring-brand-gold/30 text-right tracking-wider transition-all duration-300">
+              </div>
+            </div>
+
+            <div>
+              <label for="loginInvoice" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">رقم الفاتورة / الإيصال</label>
+              <div class="relative">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-textMuted/60"><i class="fa-solid fa-receipt text-sm"></i></span>
+                <input type="text" id="loginInvoice" required placeholder="مثال: INV-1001" class="w-full bg-brand-darkgray/60 border border-brand-border/80 focus:border-brand-gold rounded-xl py-3.5 pr-11 pl-4 text-slate-100 placeholder:text-brand-textMuted/40 focus:outline-none focus:ring-1 focus:ring-brand-gold/30 text-left font-mono tracking-wider transition-all duration-300">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-xl gold-gradient-bg text-brand-obsidian font-bold text-base hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-300 flex justify-center items-center">
+              <span id="loginBtnText">عرض ألبوم الصور</span>
+              <span id="loginBtnSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 3: CLIENT DASHBOARD / GALLERY -->
+    <section id="tab-client-gallery" class="tab-content animate-fade-in hidden">
+      <div class="space-y-8">
+        <!-- Client Profile Header -->
+        <div class="glassmorphism rounded-2xl p-6 md:p-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-brand-border/40">
+          <div class="space-y-2">
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20" id="galleryStatus">جاهز للتحميل</span>
+              <h3 class="text-2xl md:text-3xl font-bold text-white font-serif" id="galleryClientName">أحمد و سارة</h3>
+            </div>
+            <p class="text-sm text-brand-textMuted flex items-center gap-2">
+              <i class="fa-regular fa-folder-open text-brand-gold"></i>
+              ألبوم جلسة التصوير: <span id="galleryFolderName" class="text-slate-300">Wedding Session 2026</span>
+            </p>
+            <p class="text-xs text-brand-textMuted">
+              رقم الفاتورة: <span id="galleryInvoice" class="font-mono text-brand-gold">INV-2026-001</span>
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+            <button onclick="selectAllFavorites()" class="flex-grow md:flex-grow-0 px-5 py-3 rounded-xl border border-brand-border hover:border-brand-gold/30 bg-brand-darkgray/30 hover:bg-brand-darkgray/60 transition-all text-xs font-semibold flex items-center justify-center gap-2">
+              <i class="fa-solid fa-heart text-red-500"></i> تحديد الكل كـ مفضل
+            </button>
+            <button onclick="downloadAllImagesSimulated()" class="flex-grow md:flex-grow-0 px-5 py-3 rounded-xl bg-brand-darkgray hover:bg-brand-border border border-brand-gold/20 hover:border-brand-gold transition-all text-xs font-semibold flex items-center justify-center gap-2 text-brand-gold">
+              <i class="fa-solid fa-cloud-arrow-down"></i> تحميل كافة الصور (ZIP)
+            </button>
+            <button onclick="logoutClient()" class="px-4 py-3 rounded-xl bg-red-950/20 hover:bg-red-950/40 border border-red-900/30 hover:border-red-500 text-red-400 transition-all text-xs font-semibold">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> خروج
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-brand-darkgray/40 p-4 rounded-xl border border-brand-border/40">
+          <div class="relative w-full sm:max-w-xs">
+            <span class="absolute right-3 top-1/2 -translate-y-1/2 text-brand-textMuted/60"><i class="fa-solid fa-magnifying-glass text-xs"></i></span>
+            <input type="text" id="gallerySearch" oninput="filterGallery()" placeholder="البحث باسم الصورة..." class="w-full bg-brand-obsidian border border-brand-border rounded-lg py-2 pr-9 pl-4 text-xs focus:outline-none focus:border-brand-gold text-right">
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <button onclick="setGalleryFilter('all')" id="filter-all" class="px-4 py-2 rounded-lg text-xs font-bold bg-brand-gold text-brand-obsidian transition-all">كل الصور (<span id="count-all">0</span>)</button>
+            <button onclick="setGalleryFilter('fav')" id="filter-fav" class="px-4 py-2 rounded-lg text-xs font-bold bg-brand-darkgray border border-brand-border hover:border-brand-gold/30 text-brand-textMuted hover:text-brand-gold transition-all">المفضلة فقط (<span id="count-fav">0</span>)</button>
+          </div>
+        </div>
+
+        <!-- Photo Grid -->
+        <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <!-- Populated via API -->
+        </div>
+
+        <div id="galleryEmptyState" class="hidden text-center py-20 bg-brand-darkgray/20 rounded-2xl border border-dashed border-brand-border">
+          <i class="fa-regular fa-images text-5xl text-brand-textMuted/40 mb-4 block"></i>
+          <p class="text-brand-textMuted text-sm">لا توجد صور مطابقة لخيارات البحث الحالية</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: ADMIN LOGIN -->
+    <section id="tab-admin-login" class="tab-content animate-fade-in hidden py-12">
+      <div class="max-w-md mx-auto">
+        <div class="glassmorphism rounded-2xl p-8 border border-brand-border/60 shadow-2xl">
+          <div class="text-center space-y-3 mb-8">
+            <div class="w-16 h-16 rounded-full border border-brand-gold/30 flex items-center justify-center bg-brand-darkgray mx-auto text-brand-gold">
+              <i class="fa-solid fa-lock text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-bold font-serif text-white">تسجيل دخول المصور</h3>
+            <p class="text-sm text-brand-textMuted">الرجاء إدخال رمز المرور السري للدخول إلى لوحة الإدارة</p>
+          </div>
+
+          <form onsubmit="handleAdminLogin(event)" class="space-y-6">
+            <div>
+              <label for="adminPasscode" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">رمز المرور السري</label>
+              <div class="relative">
+                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-brand-textMuted/60"><i class="fa-solid fa-key text-sm"></i></span>
+                <input type="password" id="adminPasscode" required placeholder="••••••••" class="w-full bg-brand-darkgray/60 border border-brand-border/80 focus:border-brand-gold rounded-xl py-3.5 pr-11 pl-4 text-slate-100 placeholder:text-brand-textMuted/40 focus:outline-none focus:ring-1 focus:ring-brand-gold/30 text-left font-mono tracking-widest transition-all duration-300">
+              </div>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-xl gold-gradient-bg text-brand-obsidian font-bold text-base hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-300 flex justify-center items-center">
+              <span id="adminLoginBtnText">فتح لوحة التحكم</span>
+              <span id="adminLoginBtnSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 5: ADMIN DASHBOARD -->
+    <section id="tab-admin-dashboard" class="tab-content animate-fade-in hidden">
+      <div class="space-y-8">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-brand-darkgray/50 p-6 rounded-2xl border border-brand-border/40">
+          <div>
+            <h3 class="text-2xl font-bold text-white font-serif flex items-center gap-2">
+              <i class="fa-solid fa-screwdriver-wrench text-brand-gold"></i>
+              لوحة تحكم المصور | مصطفى خير الله
+            </h3>
+            <p class="text-xs text-brand-textMuted mt-1">قم بإدارة جلسات العملاء ومراقبة تسليمات الصور والمفضلات</p>
+          </div>
+          <button onclick="logoutAdmin()" class="px-4 py-2.5 rounded-lg bg-brand-darkgray hover:bg-brand-border border border-brand-border text-xs font-semibold text-slate-300 transition-all">
+            تسجيل الخروج
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glassmorphism p-6 rounded-xl border border-brand-border/50 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-brand-textMuted font-semibold">إجمالي العملاء</p>
+              <h4 class="text-3xl font-black text-white mt-1" id="stat-total-clients">0</h4>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 text-lg">
+              <i class="fa-solid fa-users"></i>
+            </div>
+          </div>
+          <div class="glassmorphism p-6 rounded-xl border border-brand-border/50 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-brand-textMuted font-semibold">المفضلات المستلمة</p>
+              <h4 class="text-3xl font-black text-brand-gold mt-1" id="stat-total-favs">0</h4>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center text-brand-gold text-lg">
+              <i class="fa-solid fa-heart"></i>
+            </div>
+          </div>
+          <div class="glassmorphism p-6 rounded-xl border border-brand-border/50 flex items-center justify-between">
+            <div>
+              <p class="text-xs text-brand-textMuted font-semibold">تسليمات قيد التجهيز</p>
+              <h4 class="text-3xl font-black text-white mt-1" id="stat-pending-deliveries">0</h4>
+            </div>
+            <div class="w-12 h-12 rounded-lg bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400 text-lg">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          <div class="lg:col-span-4 space-y-6">
+            <div class="glassmorphism rounded-xl p-6 border-brand-border/50 space-y-4">
+              <h4 class="text-lg font-bold text-white border-b border-brand-border pb-3 flex items-center gap-2">
+                <i class="fa-solid fa-circle-plus text-brand-gold"></i>
+                إضافة جلسة تسليم جديدة
+              </h4>
+              <form id="createSessionForm" onsubmit="handleCreateSession(event)" class="space-y-4">
+                <div>
+                  <label class="block text-xs text-brand-textMuted font-semibold mb-1">اسم العميل</label>
+                  <input type="text" id="adminClientName" required placeholder="مثال: أحمد و سارة" class="w-full bg-brand-darkgray border border-brand-border focus:border-brand-gold rounded-lg py-2.5 px-3 text-xs text-slate-100 placeholder:text-brand-textMuted/30 focus:outline-none">
+                </div>
+                <div>
+                  <label class="block text-xs text-brand-textMuted font-semibold mb-1">رقم الموبايل</label>
+                  <input type="tel" id="adminClientMobile" required placeholder="مثال: 01012345678" class="w-full bg-brand-darkgray border border-brand-border focus:border-brand-gold rounded-lg py-2.5 px-3 text-xs text-slate-100 placeholder:text-brand-textMuted/30 focus:outline-none text-right">
+                </div>
+                <div>
+                  <label class="block text-xs text-brand-textMuted font-semibold mb-1">رقم الفاتورة (Invoice Number)</label>
+                  <input type="text" id="adminClientInvoice" required placeholder="مثال: INV-2026-001" class="w-full bg-brand-darkgray border border-brand-border focus:border-brand-gold rounded-lg py-2.5 px-3 text-xs text-slate-100 placeholder:text-brand-textMuted/30 focus:outline-none text-left font-mono">
+                </div>
+                <div>
+                  <label class="block text-xs text-brand-textMuted font-semibold mb-1">رابط مجلد Google Drive الخاص بالعميل</label>
+                  <input type="url" id="adminClientFolderUrl" required placeholder="أدخل رابط المجلد كاملاً" class="w-full bg-brand-darkgray border border-brand-border focus:border-brand-gold rounded-lg py-2.5 px-3 text-xs text-slate-100 placeholder:text-brand-textMuted/30 focus:outline-none text-left font-mono">
+                  <p class="text-[10px] text-brand-textMuted/60 mt-1">تأكد من جعل المجلد "Anyone with link can view".</p>
+                </div>
+                <div>
+                  <label class="block text-xs text-brand-textMuted font-semibold mb-1">حالة الجلسة</label>
+                  <select id="adminClientStatus" class="w-full bg-brand-darkgray border border-brand-border focus:border-brand-gold rounded-lg py-2.5 px-3 text-xs text-slate-100 focus:outline-none">
+                    <option value="جاهز للتحميل">جاهز للتحميل</option>
+                    <option value="تحت التجهيز">تحت التجهيز</option>
+                  </select>
+                </div>
+                
+                <button type="submit" class="w-full py-3 rounded-lg gold-gradient-bg text-brand-obsidian font-bold text-xs hover:shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all flex justify-center items-center">
+                  <span id="createBtnText">تسجيل الجلسة</span>
+                  <span id="createBtnSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
+                </button>
+              </form>
+            </div>
+          </div>
+
+          <div class="lg:col-span-8 space-y-6">
+            <div class="glassmorphism rounded-xl p-6 border-brand-border/50">
+              <h4 class="text-lg font-bold text-white border-b border-brand-border pb-3 flex items-center justify-between">
+                <span class="flex items-center gap-2">
+                  <i class="fa-solid fa-clipboard-list text-brand-gold"></i>
+                  جلسات العملاء المسجلة
+                </span>
+                <button onclick="refreshDashboard()" class="text-xs text-brand-gold hover:underline"><i class="fa-solid fa-arrows-rotate ml-1"></i> تحديث</button>
+              </h4>
+              <div class="overflow-x-auto mt-4">
+                <table class="w-full text-right text-xs">
+                  <thead>
+                    <tr class="text-brand-textMuted border-b border-brand-border/80">
+                      <th class="py-3 px-2">العميل</th>
+                      <th class="py-3 px-2">رقم الموبايل</th>
+                      <th class="py-3 px-2">رقم الفاتورة</th>
+                      <th class="py-3 px-2">حالة الجلسة</th>
+                      <th class="py-3 px-2">تعديلات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminClientsTable">
+                    <!-- Loaded dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="glassmorphism rounded-xl p-6 border-brand-border/50">
+              <h4 class="text-lg font-bold text-white border-b border-brand-border pb-3 flex items-center gap-2">
+                <i class="fa-solid fa-heart-circle-check text-brand-gold"></i>
+                المفضلات المستلمة للطباعة
+              </h4>
+              <div class="overflow-x-auto mt-4">
+                <table class="w-full text-right text-xs">
+                  <thead>
+                    <tr class="text-brand-textMuted border-b border-brand-border/80">
+                      <th class="py-3 px-2">التاريخ</th>
+                      <th class="py-3 px-2">العميل</th>
+                      <th class="py-3 px-2">الفاتورة</th>
+                      <th class="py-3 px-2">المفضلة</th>
+                      <th class="py-3 px-2">ملاحظات</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminFavoritesTable">
+                    <!-- Loaded dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 6: CONTACT & BOOKING -->
+    <section id="tab-contact" class="tab-content animate-fade-in hidden py-12">
+      <div class="max-w-2xl mx-auto glassmorphism rounded-2xl p-8 border border-brand-border/60 shadow-2xl">
+        <div class="text-center mb-8 space-y-2">
+          <h3 class="text-3xl font-bold font-serif text-white">تواصل لحجز جلستك القادمة</h3>
+          <p class="text-sm text-brand-textMuted">يمكنك إرسال طلب استفسار أو حجز وسأقوم بالرد عليك في أقرب وقت</p>
+        </div>
+
+        <form onsubmit="handleContactSubmit(event)" class="space-y-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+              <label for="contactName" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">الاسم بالكامل</label>
+              <input type="text" id="contactName" required placeholder="مثال: أحمد محمد" class="w-full bg-brand-darkgray border border-brand-border rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brand-gold text-right">
+            </div>
+            <div>
+              <label for="contactPhone" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">رقم الموبايل</label>
+              <input type="tel" id="contactPhone" required placeholder="مثال: 01012345678" class="w-full bg-brand-darkgray border border-brand-border rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brand-gold text-right">
+            </div>
+          </div>
+
+          <div>
+            <label for="contactSubject" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">نوع الجلسة المطلوبة</label>
+            <select id="contactSubject" class="w-full bg-brand-darkgray border border-brand-border rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brand-gold text-right">
+              <option value="wedding">جلسة تصوير زفاف / خطوبة Wedding</option>
+              <option value="portrait">جلسة تصوير بورتريه Portrait</option>
+              <option value="commercial">جلسة تصوير تجاري Commercial</option>
+              <option value="other">جلسة تصوير أخرى Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contactMessage" class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">تفاصيل الجلسة / رسالتك</label>
+            <textarea id="contactMessage" rows="5" required placeholder="اكتب هنا تفاصيل التاريخ والمكان المفضل لجلسة التصوير..." class="w-full bg-brand-darkgray border border-brand-border rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brand-gold text-right resize-none"></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 rounded-xl gold-gradient-bg text-brand-obsidian font-bold text-base hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-300 flex justify-center items-center">
+            إرسال طلب الحجز
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- LIGHTBOX MODAL -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-brand-obsidian/95 backdrop-blur-md hidden flex-col justify-between p-4 animate-fade-in no-select">
+    <div class="flex justify-between items-center w-full max-w-7xl mx-auto py-2">
+      <div class="flex items-center gap-3">
+        <button id="lightboxFavBtn" onclick="toggleLightboxFavorite()" class="w-10 h-10 rounded-full bg-brand-darkgray/80 border border-brand-border text-slate-300 hover:text-red-500 hover:border-red-500 flex items-center justify-center transition-all">
+          <i class="fa-regular fa-heart text-sm" id="lightboxHeartIcon"></i>
+        </button>
+        <a id="lightboxDownloadBtn" href="" download class="w-10 h-10 rounded-full bg-brand-darkgray/80 border border-brand-border text-brand-gold hover:bg-brand-gold hover:text-brand-obsidian flex items-center justify-center transition-all">
+          <i class="fa-solid fa-download text-sm"></i>
+        </a>
+      </div>
+      
+      <div class="text-center">
+        <h4 id="lightboxTitle" class="text-sm font-bold text-white">Photo_Name.jpg</h4>
+        <p id="lightboxIndex" class="text-[10px] text-brand-textMuted">1 / 24</p>
+      </div>
+
+      <button onclick="closeLightbox()" class="w-10 h-10 rounded-full bg-brand-darkgray/80 border border-brand-border text-slate-300 hover:text-brand-gold flex items-center justify-center transition-all">
+        <i class="fa-solid fa-xmark text-sm"></i>
+      </button>
+    </div>
+
+    <div class="flex-grow flex items-center justify-between w-full max-w-7xl mx-auto relative h-[80vh]">
+      <button onclick="prevLightboxImage()" class="absolute left-2 z-10 w-12 h-12 rounded-full bg-brand-darkgray/50 hover:bg-brand-gold border border-brand-border hover:border-brand-gold text-slate-300 hover:text-brand-obsidian flex items-center justify-center transition-all transform hover:scale-105">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="w-full h-full flex items-center justify-center overflow-hidden">
+        <img id="lightboxImg" src="" alt="Lightbox image" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-all duration-300 select-none">
+      </div>
+
+      <button onclick="nextLightboxImage()" class="absolute right-2 z-10 w-12 h-12 rounded-full bg-brand-darkgray/50 hover:bg-brand-gold border border-brand-border hover:border-brand-gold text-slate-300 hover:text-brand-obsidian flex items-center justify-center transition-all transform hover:scale-105">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+    </div>
+
+    <div class="text-center text-xs text-brand-textMuted/60 py-2 border-t border-brand-border/30">
+      <i class="fa-solid fa-shield-halved ml-1"></i> حماية الملكية الفكرية نشطة | يمنع نسخ الصور أو التقاط لقطات شاشة قبل الشراء النهائي.
+    </div>
+  </div>
+
+  <!-- FLOATING FAVORITES SUBMIT BAR -->
+  <div id="favoritesFloatBar" class="fixed bottom-6 right-6 left-6 z-30 transform translate-y-24 opacity-0 transition-all duration-500 ease-out hidden">
+    <div class="max-w-3xl mx-auto glassmorphism rounded-2xl p-4 md:p-6 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-4 border border-brand-gold/30">
+      <div class="flex items-center gap-3 text-right">
+        <div class="w-10 h-10 rounded-full bg-brand-gold/10 border border-brand-gold/30 flex items-center justify-center text-brand-gold text-sm animate-pulse-gold">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <div>
+          <h5 class="text-sm font-bold text-white">قائمة الصور المختارة</h5>
+          <p class="text-xs text-brand-textMuted">قمت بتحديد <span id="favFloatCount" class="font-bold text-brand-gold">0</span> صور مفضلة لتجهيزها للطباعة.</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-2 w-full md:w-auto">
+        <button onclick="openFavoritesSubmitModal()" class="w-full md:w-auto px-6 py-3 rounded-xl gold-gradient-bg text-brand-obsidian font-bold text-xs hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all">
+          إرسال الصور المختارة للمصور
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAVORITES MESSAGE SUBMIT MODAL -->
+  <div id="favSubmitModal" class="fixed inset-0 z-50 bg-brand-obsidian/90 backdrop-blur-md hidden flex items-center justify-center p-4 animate-fade-in no-select">
+    <div class="glassmorphism w-full max-w-lg rounded-2xl p-6 border border-brand-border shadow-2xl relative">
+      <h4 class="text-xl font-bold text-white font-serif border-b border-brand-border pb-3 flex items-center gap-2">
+        <i class="fa-solid fa-paper-plane text-brand-gold"></i>
+        تأكيد إرسال المفضلات
+      </h4>
+      <p class="text-xs text-brand-textMuted mt-3 leading-relaxed">
+        سيتم إرسال أسماء الصور المحددة مباشرة إلى المصور مصطفى خير الله لتبدأ عملية المعالجة والتعديل النهائي أو الطباعة. يمكنك كتابة أي ملاحظات أو تعليمات خاصة بالتعديل أدناه:
+      </p>
+
+      <div class="mt-4">
+        <label class="block text-xs font-semibold text-brand-textMuted mb-2 mr-1">ملاحظات أو طلبات تعديل خاصة</label>
+        <textarea id="favNotesInput" rows="4" placeholder="مثال: يرجى تنعيم البشرة بالصورة الأولى، وتفتيح الخلفية بالصورة الرابعة..." class="w-full bg-brand-darkgray border border-brand-border rounded-xl py-3 px-4 text-xs focus:outline-none focus:border-brand-gold text-right resize-none"></textarea>
+      </div>
+
+      <div class="flex gap-3 mt-6">
+        <button onclick="submitFavoritesList()" class="flex-grow py-3 rounded-xl gold-gradient-bg text-brand-obsidian font-bold text-xs hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all flex justify-center items-center">
+          <span id="favSubmitBtnText">تأكيد وإرسال للمصور</span>
+          <span id="favSubmitSpinner" class="hidden"><i class="fa-solid fa-spinner animate-spin"></i></span>
+        </button>
+        <button onclick="closeFavoritesSubmitModal()" class="px-5 py-3 rounded-xl border border-brand-border hover:bg-brand-darkgray text-slate-300 font-semibold text-xs transition-all">
+          إلغاء
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toastContainer" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+  <!-- FOOTER -->
+  <footer class="w-full border-t border-brand-border/30 bg-brand-darkgray/30 py-8 px-6 mt-12 text-center text-xs text-brand-textMuted space-y-2">
+    <p class="font-serif">© 2026 MOSTAFA KHIRALLAH PHOTOGRAPHY. ALL RIGHTS RESERVED.</p>
+    <p>صنع بكل احترافية لحماية وتسليم صور العملاء الرقمية.</p>
+  </footer>
+
+  <!-- CLIENT-SIDE CONTROLLER SCRIPT -->
+  <script>
+    // ==========================================================================
+    // CONFIGURATION: Paste your Google Apps Script Web App URL here
+    // ==========================================================================
+    const API_URL = "https://script.google.com/macros/s/AKfycby2BIHoBiKLAh9dQ7ENH_g9vCHnGpk-vbmZ5zeoMpLvhOK93qV-bqnaTvQ2Wbom2ZZl/exec"; 
+
+    // Verification check for developer setup
+    window.addEventListener('DOMContentLoaded', () => {
+      if (API_URL === "YOUR_DEPLOYED_APPS_SCRIPT_URL" || !API_URL.trim()) {
+        document.getElementById('apiConfigWarning').classList.remove('hidden');
+      }
+    });
+
+    // State Store
+    let currentTab = 'home';
+    let clientSession = null;
+    let favoritesList = [];
+    let galleryFilter = 'all';
+    let adminPasscodeToken = '';
+    let adminDashboardData = null;
+    let activeLightboxIndex = 0;
+
+    // Helper for API calls via GET to prevent preflight CORS problems
+    function callApi(action, params = {}) {
+      if (API_URL === "YOUR_DEPLOYED_APPS_SCRIPT_URL" || !API_URL.trim()) {
+        showToast("يرجى ضبط رابط الـ API في الكود أولاً!", "error");
+        return Promise.reject(new Error("API_URL not configured."));
+      }
+
+      const queryParams = new URLSearchParams({ action, ...params });
+      const url = `${API_URL}?${queryParams.toString()}`;
+
+      return fetch(url, {
+        method: 'GET',
+        redirect: 'follow'
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("Network response error.");
+        return res.json();
+      });
+    }
+
+    // Toast Notifications System
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `p-4 rounded-xl shadow-xl flex items-center gap-3 border text-xs font-semibold animate-slide-up pointer-events-auto transition-all duration-300`;
+      
+      let icon = '<i class="fa-solid fa-info-circle text-blue-400"></i>';
+      let border = 'border-blue-900/50 bg-brand-darkgray/95';
+      
+      if (type === 'success') {
+        icon = '<i class="fa-solid fa-circle-check text-green-400"></i>';
+        border = 'border-green-900/50 bg-brand-darkgray/95 text-green-100';
+      } else if (type === 'error') {
+        icon = '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>';
+        border = 'border-red-900/50 bg-brand-darkgray/95 text-red-100';
+      } else if (type === 'warning') {
+        icon = '<i class="fa-solid fa-shield-halved text-yellow-400"></i>';
+        border = 'border-yellow-900/50 bg-brand-darkgray/95 text-yellow-100';
+      }
+      
+      toast.innerHTML = `
+        <div class="text-sm">${icon}</div>
+        <div class="flex-grow text-right">${message}</div>
+        <button onclick="this.parentElement.remove()" class="text-brand-textMuted hover:text-white transition-colors"><i class="fa-solid fa-xmark"></i></button>
+      `;
+      
+      toast.classList.add(...border.split(' '));
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(10px)';
+        setTimeout(() => toast.remove(), 300);
+      }, 4500);
+    }
+
+    // Security Policies
+    document.addEventListener('contextmenu', function(e) {
+      if (e.target.tagName === 'IMG' || e.target.closest('#galleryGrid')) {
+        e.preventDefault();
+        showToast('حماية الملكية الفكرية نشطة. لا يسمح بنسخ الصور أو بالزر الأيمن للفأرة.', 'warning');
+      }
+    });
+
+    document.addEventListener('dragstart', function(e) {
+      if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+      }
+    });
+
+    // Tab Switching Router
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => {
+        el.classList.add('hidden');
+        el.classList.remove('block');
+      });
+      
+      const target = document.getElementById(`tab-${tabId}`);
+      if (target) {
+        target.classList.remove('hidden');
+        target.classList.add('block');
+      }
+      
+      currentTab = tabId;
+      
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.className = 'nav-link text-brand-textMuted hover:text-brand-gold pb-1 px-1 transition-all';
+      });
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    /* ==========================================================================
+       CLIENT PORTAL FLOW
+       ========================================================================== */
+
+    function handleClientLogin(e) {
+      e.preventDefault();
+      
+      const mobile = document.getElementById('loginMobile').value.trim();
+      const invoice = document.getElementById('loginInvoice').value.trim();
+      
+      const btnText = document.getElementById('loginBtnText');
+      const btnSpinner = document.getElementById('loginBtnSpinner');
+      
+      btnText.classList.add('hidden');
+      btnSpinner.classList.remove('hidden');
+      
+      callApi('validateClient', { mobile, invoice })
+        .then(response => {
+          btnText.classList.remove('hidden');
+          btnSpinner.classList.add('hidden');
+          
+          if (response.success) {
+            clientSession = response;
+            favoritesList = [];
+            
+            document.getElementById('galleryClientName').innerText = response.clientName;
+            document.getElementById('galleryFolderName').innerText = response.folderName;
+            document.getElementById('galleryInvoice').innerText = response.invoice;
+            document.getElementById('galleryStatus').innerText = response.status;
+            
+            if (response.status === 'جاهز للتحميل' || response.status === 'Ready') {
+              document.getElementById('galleryStatus').className = 'px-3 py-1 rounded-full text-xs font-semibold bg-green-500/10 text-green-400 border border-green-500/20';
+            } else {
+              document.getElementById('galleryStatus').className = 'px-3 py-1 rounded-full text-xs font-semibold bg-yellow-500/10 text-yellow-400 border border-yellow-500/20';
+            }
+            
+            renderGalleryGrid();
+            switchTab('client-gallery');
+            showToast(`أهلاً بك يا ${response.clientName}. تم تحميل ألبوم الصور بنجاح.`, 'success');
+          } else {
+            showToast(response.message || "حدث خطأ غير متوقع", 'error');
+          }
+        })
+        .catch(err => {
+          btnText.classList.remove('hidden');
+          btnSpinner.classList.add('hidden');
+          showToast("خطأ في الاتصال بالخادم: " + err.message, 'error');
+        });
+    }
+
+    function renderGalleryGrid() {
+      const grid = document.getElementById('galleryGrid');
+      const emptyState = document.getElementById('galleryEmptyState');
+      grid.innerHTML = '';
+      
+      if (!clientSession || !clientSession.images || clientSession.images.length === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      let filteredImages = [...clientSession.images];
+      
+      const searchVal = document.getElementById('gallerySearch').value.toLowerCase().trim();
+      if (searchVal) {
+        filteredImages = filteredImages.filter(img => img.name.toLowerCase().includes(searchVal));
+      }
+      
+      if (galleryFilter === 'fav') {
+        filteredImages = filteredImages.filter(img => isFavorite(img.id));
+      }
+      
+      document.getElementById('count-all').innerText = clientSession.images.length;
+      document.getElementById('count-fav').innerText = favoritesList.length;
+      
+      if (filteredImages.length === 0) {
+        grid.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        return;
+      }
+      
+      grid.classList.remove('hidden');
+      emptyState.classList.add('hidden');
+      
+      filteredImages.forEach((img, idx) => {
+        const isFav = isFavorite(img.id);
+        const card = document.createElement('div');
+        card.className = "group relative rounded-xl overflow-hidden border border-brand-border bg-brand-darkgray/30 p-2 transition-all duration-300 hover:border-brand-gold/30 hover:shadow-lg hover:shadow-brand-gold/5 flex flex-col justify-between";
+        
+        card.innerHTML = `
+          <div class="relative w-full aspect-[3/4] rounded-lg overflow-hidden bg-brand-darkgray/80" onclick="openLightbox(${idx})">
+            <div class="absolute inset-0 skeleton animate-shimmer"></div>
+            <img src="${img.thumbnail}" alt="${img.name}" loading="lazy" class="w-full h-full object-cover relative z-10 transition-transform duration-500 group-hover:scale-105 select-none" onload="this.previousElementSibling.remove()">
+            <div class="absolute inset-0 bg-gradient-to-t from-brand-obsidian/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 flex flex-col justify-between p-3">
+              <div class="flex justify-end">
+                <span class="text-[10px] bg-brand-obsidian/75 backdrop-blur-md text-brand-gold border border-brand-gold/30 rounded-full px-2.5 py-1 font-mono">${img.size}</span>
+              </div>
+              <div class="flex justify-center items-center text-white/60">
+                <i class="fa-solid fa-magnifying-glass-plus text-xl hover:text-brand-gold transition-colors"></i>
+              </div>
+              <div class="text-right">
+                <p class="text-xs font-semibold truncate text-white">${img.name}</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between items-center mt-3 px-1">
+            <button onclick="toggleFavorite('${img.id}', '${img.name.replace(/'/g, "\\'")}', event)" class="w-8 h-8 rounded-full border ${isFav ? 'border-red-500 bg-red-950/20 text-red-500' : 'border-brand-border hover:border-red-500 hover:text-red-500'} flex items-center justify-center transition-all">
+              <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-heart"></i>
+            </button>
+            
+            <a href="${img.downloadUrl}" target="_blank" download="${img.name}" onclick="event.stopPropagation()" class="px-3.5 py-1.5 rounded-lg border border-brand-border hover:border-brand-gold hover:text-brand-gold text-[10px] font-bold text-brand-textMuted flex items-center gap-1.5 transition-all">
+              <i class="fa-solid fa-arrow-down"></i> تحميل
+            </a>
+          </div>
+        `;
+        
+        grid.appendChild(card);
+      });
+    }
+
+    function isFavorite(imgId) {
+      return favoritesList.some(item => item.id === imgId);
+    }
+
+    function toggleFavorite(imgId, imgName, event) {
+      if (event) event.stopPropagation();
+      
+      const index = favoritesList.findIndex(item => item.id === imgId);
+      
+      if (index === -1) {
+        favoritesList.push({ id: imgId, name: imgName });
+        showToast('تمت الإضافة للمفضلة ❤️', 'success');
+      } else {
+        favoritesList.splice(index, 1);
+        showToast('تمت الإزالة من المفضلة 💔', 'info');
+      }
+      
+      updateFavoritesBar();
+      renderGalleryGrid();
+    }
+
+    function selectAllFavorites() {
+      if (!clientSession || !clientSession.images) return;
+      
+      favoritesList = clientSession.images.map(img => ({ id: img.id, name: img.name }));
+      showToast('تم تحديد كافة الصور كمفضلات ❤️', 'success');
+      updateFavoritesBar();
+      renderGalleryGrid();
+    }
+
+    function updateFavoritesBar() {
+      const bar = document.getElementById('favoritesFloatBar');
+      const countSpan = document.getElementById('favFloatCount');
+      
+      if (favoritesList.length > 0) {
+        bar.classList.remove('hidden');
+        setTimeout(() => {
+          bar.classList.remove('translate-y-24', 'opacity-0');
+        }, 10);
+        countSpan.innerText = favoritesList.length;
+      } else {
+        bar.classList.add('translate-y-24', 'opacity-0');
+        setTimeout(() => {
+          bar.classList.add('hidden');
+        }, 500);
+      }
+      
+      document.getElementById('count-fav').innerText = favoritesList.length;
+    }
+
+    function setGalleryFilter(filterType) {
+      galleryFilter = filterType;
+      
+      const allBtn = document.getElementById('filter-all');
+      const favBtn = document.getElementById('filter-fav');
+      
+      if (filterType === 'all') {
+        allBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-brand-gold text-brand-obsidian transition-all';
+        favBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-brand-darkgray border border-brand-border text-brand-textMuted hover:text-brand-gold transition-all';
+      } else {
+        favBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-brand-gold text-brand-obsidian transition-all';
+        allBtn.className = 'px-4 py-2 rounded-lg text-xs font-bold bg-brand-darkgray border border-brand-border text-brand-textMuted hover:text-brand-gold transition-all';
+      }
+      
+      renderGalleryGrid();
+    }
+
+    function filterGallery() {
+      renderGalleryGrid();
+    }
+
+    function logoutClient() {
+      clientSession = null;
+      favoritesList = [];
+      document.getElementById('loginMobile').value = '';
+      document.getElementById('loginInvoice').value = '';
+      updateFavoritesBar();
+      switchTab('client-login');
+      showToast('تم تسجيل الخروج بنجاح.', 'info');
+    }
+
+    function downloadAllImagesSimulated() {
+      if (!clientSession || !clientSession.images || clientSession.images.length === 0) return;
+      showToast('جاري فتح روابط التنزيل الفردية...', 'info');
+      
+      clientSession.images.forEach((img, idx) => {
+        if (idx < 5) {
+          setTimeout(() => {
+            window.open(img.downloadUrl, '_blank');
+          }, idx * 600);
+        }
+      });
+      if (clientSession.images.length > 5) {
+        setTimeout(() => {
+          showToast('بسبب كثرة الصور، تم فتح أول 5 صور تلقائياً. يمكنك تحميل الباقي يدوياً.', 'warning');
+        }, 3000);
+      }
+    }
+
+    /* ==========================================================================
+       LIGHTBOX / LARGE PREVIEW
+       ========================================================================== */
+
+    function openLightbox(index) {
+      if (!clientSession || !clientSession.images || clientSession.images.length === 0) return;
+      
+      activeLightboxIndex = index;
+      const imgData = clientSession.images[index];
+      
+      document.getElementById('lightboxImg').src = imgData.thumbnail;
+      document.getElementById('lightboxTitle').innerText = imgData.name;
+      document.getElementById('lightboxIndex').innerText = `${index + 1} / ${clientSession.images.length}`;
+      document.getElementById('lightboxDownloadBtn').href = imgData.downloadUrl;
+      
+      const isFav = isFavorite(imgData.id);
+      const heartIcon = document.getElementById('lightboxHeartIcon');
+      const favBtn = document.getElementById('lightboxFavBtn');
+      
+      if (isFav) {
+        heartIcon.className = 'fa-solid fa-heart text-red-500';
+        favBtn.className = 'w-10 h-10 rounded-full bg-brand-darkgray/80 border border-red-500/50 text-red-500 flex items-center justify-center transition-all';
+      } else {
+        heartIcon.className = 'fa-regular fa-heart text-slate-300';
+        favBtn.className = 'w-10 h-10 rounded-full bg-brand-darkgray/80 border border-brand-border text-slate-300 hover:text-red-500 hover:border-red-500 flex items-center justify-center transition-all';
+      }
+      
+      document.getElementById('lightboxModal').classList.remove('hidden');
+      document.getElementById('lightboxModal').classList.add('flex');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightboxModal').classList.add('hidden');
+      document.getElementById('lightboxModal').classList.remove('flex');
+    }
+
+    function prevLightboxImage() {
+      let idx = activeLightboxIndex - 1;
+      if (idx < 0) idx = clientSession.images.length - 1;
+      openLightbox(idx);
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (document.getElementById('lightboxModal').classList.contains('hidden')) return;
+      
+      if (e.key === 'ArrowLeft') {
+        prevLightboxImage();
+      } else if (e.key === 'ArrowRight') {
+        nextLightboxImage();
+      } else if (e.key === 'Escape') {
+        closeLightbox();
+      }
+    });
+
+    function nextLightboxImage() {
+      let idx = activeLightboxIndex + 1;
+      if (idx >= clientSession.images.length) idx = 0;
+      openLightbox(idx);
+    }
+
+    function toggleLightboxFavorite() {
+      if (!clientSession || !clientSession.images) return;
+      const imgData = clientSession.images[activeLightboxIndex];
+      toggleFavorite(imgData.id, imgData.name);
+      openLightbox(activeLightboxIndex);
+    }
+
+    /* ==========================================================================
+       FAVORITES SUBMISSION FLOW
+       ========================================================================== */
+
+    function openFavoritesSubmitModal() {
+      document.getElementById('favNotesInput').value = '';
+      document.getElementById('favSubmitModal').classList.remove('hidden');
+    }
+
+    function closeFavoritesSubmitModal() {
+      document.getElementById('favSubmitModal').classList.add('hidden');
+    }
+
+    function submitFavoritesList() {
+      const notes = document.getElementById('favNotesInput').value.trim();
+      const submitText = document.getElementById('favSubmitBtnText');
+      const submitSpinner = document.getElementById('favSubmitSpinner');
+      
+      submitText.classList.add('hidden');
+      submitSpinner.classList.remove('hidden');
+      
+      callApi('submitFavorites', {
+        invoice: clientSession.invoice,
+        name: clientSession.clientName,
+        mobile: clientSession.mobile,
+        favorites: JSON.stringify(favoritesList),
+        notes: notes
+      })
+      .then(response => {
+        submitText.classList.remove('hidden');
+        submitSpinner.classList.add('hidden');
+        closeFavoritesSubmitModal();
+        
+        if (response.success) {
+          showToast(response.message, 'success');
+          favoritesList = [];
+          updateFavoritesBar();
+          renderGalleryGrid();
+        } else {
+          showToast(response.message || "حدث خطأ غير متوقع", 'error');
+        }
+      })
+      .catch(err => {
+        submitText.classList.remove('hidden');
+        submitSpinner.classList.add('hidden');
+        showToast("حدث خطأ أثناء الاتصال: " + err.message, 'error');
+      });
+    }
+
+    /* ==========================================================================
+       ADMIN CONTROL ACTIONS
+       ========================================================================== */
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const code = document.getElementById('adminPasscode').value.trim();
+      
+      const loginText = document.getElementById('adminLoginBtnText');
+      const loginSpinner = document.getElementById('adminLoginBtnSpinner');
+      
+      loginText.classList.add('hidden');
+      loginSpinner.classList.remove('hidden');
+      
+      callApi('adminGetDashboardData', { passcode: code })
+        .then(response => {
+          loginText.classList.remove('hidden');
+          loginSpinner.classList.add('hidden');
+          
+          if (response.success) {
+            adminPasscodeToken = code;
+            adminDashboardData = response;
+            
+            renderAdminDashboard(response);
+            switchTab('admin-dashboard');
+            showToast('تم تسجيل الدخول للوحة التحكم.', 'success');
+          } else {
+            showToast(response.message || "الرمز السري غير صحيح!", 'error');
+          }
+        })
+        .catch(err => {
+          loginText.classList.remove('hidden');
+          loginSpinner.classList.add('hidden');
+          showToast("خطأ في الاتصال بالخادم: " + err.message, 'error');
+        });
+    }
+
+    function renderAdminDashboard(data) {
+      document.getElementById('stat-total-clients').innerText = data.stats.totalClients;
+      document.getElementById('stat-total-favs').innerText = data.stats.totalFavorites;
+      document.getElementById('stat-pending-deliveries').innerText = data.stats.pendingDeliveries;
+      
+      const cTable = document.getElementById('adminClientsTable');
+      cTable.innerHTML = '';
+      
+      if (data.clients.length === 0) {
+        cTable.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-brand-textMuted">لا يوجد جلسات عملاء مسجلة حالياً.</td></tr>';
+      } else {
+        data.clients.forEach(c => {
+          const row = document.createElement('tr');
+          row.className = "border-b border-brand-border/40 hover:bg-brand-darkgray/30";
+          row.innerHTML = `
+            <td class="py-3 px-2 font-semibold text-white">${c.name}</td>
+            <td class="py-3 px-2 font-mono">${c.mobile}</td>
+            <td class="py-3 px-2 font-mono text-brand-gold">${c.invoice}</td>
+            <td class="py-3 px-2"><span class="px-2 py-0.5 rounded text-[10px] ${c.status === 'جاهز للتحميل' ? 'bg-green-500/10 text-green-400' : 'bg-yellow-500/10 text-yellow-400'}">${c.status}</span></td>
+            <td class="py-3 px-2 flex gap-2">
+              <a href="${c.folderUrl}" target="_blank" class="text-blue-400 hover:text-blue-300 hover:underline"><i class="fa-solid fa-arrow-up-right-from-square"></i> درايف</a>
+              <button onclick="adminDeleteSessionConfirm('${c.invoice}')" class="text-red-400 hover:text-red-300"><i class="fa-regular fa-trash-can"></i> حذف</button>
+            </td>
+          `;
+          cTable.appendChild(row);
+        });
+      }
+      
+      const fTable = document.getElementById('adminFavoritesTable');
+      fTable.innerHTML = '';
+      
+      if (data.favorites.length === 0) {
+        fTable.innerHTML = '<tr><td colspan="5" class="py-4 text-center text-brand-textMuted">لا توجد اختيارات مفضلة مستلمة بعد.</td></tr>';
+      } else {
+        data.favorites.forEach(f => {
+          const row = document.createElement('tr');
+          row.className = "border-b border-brand-border/40 hover:bg-brand-darkgray/30";
+          
+          let photosNames = f.photos.map(p => p.name).join(' | ');
+          
+          row.innerHTML = `
+            <td class="py-3 px-2 text-brand-textMuted text-[10px]">${f.timestamp}</td>
+            <td class="py-3 px-2 font-semibold text-white">${f.clientName}</td>
+            <td class="py-3 px-2 font-mono text-brand-gold">${f.invoice}</td>
+            <td class="py-3 px-2">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-red-950/20 text-red-400 border border-red-500/20 font-bold font-sans">${f.photosCount} صور</span>
+              <p class="text-[10px] text-brand-textMuted max-w-[200px] truncate mt-1" title="${photosNames}">${photosNames}</p>
+            </td>
+            <td class="py-3 px-2 text-slate-300 max-w-[200px] truncate" title="${f.notes ? f.notes : ''}">${f.notes ? f.notes : '<span class="text-brand-textMuted/40">لا توجد</span>'}</td>
+          `;
+          fTable.appendChild(row);
+        });
+      }
+    }
+
+    function refreshDashboard() {
+      if (!adminPasscodeToken) return;
+      
+      callApi('adminGetDashboardData', { passcode: adminPasscodeToken })
+        .then(response => {
+          if (response.success) {
+            adminDashboardData = response;
+            renderAdminDashboard(response);
+            showToast('تم تحديث البيانات بنجاح.', 'success');
+          }
+        })
+        .catch(err => showToast("فشل تحديث البيانات: " + err.message, "error"));
+    }
+
+    function handleCreateSession(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('adminClientName').value.trim();
+      const mobile = document.getElementById('adminClientMobile').value.trim();
+      const invoice = document.getElementById('adminClientInvoice').value.trim();
+      const folderUrl = document.getElementById('adminClientFolderUrl').value.trim();
+      const status = document.getElementById('adminClientStatus').value;
+      
+      const createText = document.getElementById('createBtnText');
+      const createSpinner = document.getElementById('createBtnSpinner');
+      
+      createText.classList.add('hidden');
+      createSpinner.classList.remove('hidden');
+      
+      callApi('adminCreateSession', {
+        passcode: adminPasscodeToken,
+        name,
+        mobile,
+        invoice,
+        folderUrl,
+        status
+      })
+      .then(response => {
+        createText.classList.remove('hidden');
+        createSpinner.classList.add('hidden');
+        
+        if (response.success) {
+          showToast(response.message, 'success');
+          document.getElementById('createSessionForm').reset();
+          refreshDashboard();
+        } else {
+          showToast(response.message || "حدث خطأ غير متوقع", 'error');
+        }
+      })
+      .catch(err => {
+        createText.classList.remove('hidden');
+        createSpinner.classList.add('hidden');
+        showToast("خطأ في الاتصال: " + err.message, 'error');
+      });
+    }
+
+    function adminDeleteSessionConfirm(invoice) {
+      if (confirm(`هل أنت متأكد من رغبتك في حذف جلسة العميل ذات الفاتورة ${invoice}؟`)) {
+        callApi('adminDeleteSession', { passcode: adminPasscodeToken, invoice })
+          .then(response => {
+            if (response.success) {
+              showToast(response.message, 'success');
+              refreshDashboard();
+            } else {
+              showToast(response.message || "خطأ أثناء الحذف", 'error');
+            }
+          })
+          .catch(err => showToast("خطأ في الاتصال: " + err.message, "error"));
+      }
+    }
+
+    function logoutAdmin() {
+      adminPasscodeToken = '';
+      adminDashboardData = null;
+      document.getElementById('adminPasscode').value = '';
+      switchTab('admin-login');
+      showToast('تم الخروج من لوحة التحكم بنجاح.', 'info');
+    }
+
+    /* ==========================================================================
+       CONTACT SUBMISSION
+       ========================================================================== */
+
+    function handleContactSubmit(e) {
+      e.preventDefault();
+      showToast('جاري إرسال طلب الحجز الخاص بك إلى المصور...', 'info');
+      
+      setTimeout(() => {
+        showToast('تم إرسال رسالتك بنجاح! سيتواصل معك مصطفى خير الله قريباً لتأكيد الموعد.', 'success');
+        e.target.reset();
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
