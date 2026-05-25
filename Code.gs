@@ -136,15 +136,15 @@ function validateClient(mobileNumber, invoiceNumber) {
     const sheet = ss.getSheetByName(CLIENTS_SHEET_NAME);
     const data = sheet.getDataRange().getValues();
     
-    // Clean inputs
-    const cleanMobile = String(mobileNumber).replace(/\s+/g, '').trim();
+    // Clean inputs (ignoring leading zeros for phone matching robustness)
+    const cleanMobile = String(mobileNumber).replace(/\s+/g, '').replace(/^0+/, '').trim();
     const cleanInvoice = String(invoiceNumber).replace(/\s+/g, '').toUpperCase().trim();
     
     let matchedRow = null;
     
     // Search for client (skip headers)
     for (let i = 1; i < data.length; i++) {
-      const rowMobile = String(data[i][1]).replace(/\s+/g, '').trim();
+      const rowMobile = String(data[i][1]).replace(/\s+/g, '').replace(/^0+/, '').trim();
       const rowInvoice = String(data[i][2]).replace(/\s+/g, '').toUpperCase().trim();
       
       if (rowMobile === cleanMobile && rowInvoice === cleanInvoice) {
@@ -188,17 +188,8 @@ function validateClient(mobileNumber, invoiceNumber) {
       const mime = file.getMimeType();
       
       if (mime.indexOf('image/') === 0) {
-        let thumbUrl = "";
-        try {
-          const thumb = file.getThumbnailLink();
-          if (thumb) {
-            thumbUrl = thumb.replace(/=s\d+$/, '=s1600');
-          } else {
-            thumbUrl = file.getUrl();
-          }
-        } catch (err) {
-          thumbUrl = file.getUrl();
-        }
+        // High-resolution web-optimized thumbnail link (requires folder to be set to 'Anyone with link can view')
+        const thumbUrl = "https://drive.google.com/thumbnail?id=" + file.getId() + "&sz=w1600";
         
         images.push({
           id: file.getId(),
@@ -451,7 +442,7 @@ function adminCreateSession(passcode, clientName, mobileNumber, invoiceNumber, f
     
     sheet.appendRow([
       clientName.trim(),
-      cleanMobile,
+      "'" + cleanMobile, // Prepend single quote to force text format and preserve leading zero
       cleanInvoice,
       folderUrl.trim(),
       status,
