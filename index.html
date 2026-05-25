@@ -188,7 +188,7 @@
             <button onclick="switchTab('client-login')" class="w-full sm:w-auto px-8 py-4 rounded-xl gold-gradient-bg text-brand-obsidian font-bold hover:shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 text-center">
               <i class="fa-solid fa-images ml-2"></i> الدخول لمعرض الصور الخاص بي
             </button>
-            <button onclick="switchTab('contact')" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-brand-border bg-brand-darkgray/40 text-slate-200 font-semibold hover:border-brand-gold/50 transition-all duration-300 text-center">
+            <button onclick="window.open('https://wa.me/201117926177?text=مرحباً مصطفى، أود الاستفسار عن حجز جلسة تصوير.', '_blank')" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-brand-border bg-brand-darkgray/40 text-slate-200 font-semibold hover:border-brand-gold/50 transition-all duration-300 text-center">
               تواصل لحجز جلسة تصوير
             </button>
           </div>
@@ -198,7 +198,7 @@
           <div class="absolute -inset-1 gold-gradient-bg rounded-2xl opacity-15 blur-2xl"></div>
           <div class="relative w-full max-w-sm aspect-[3/4] rounded-2xl overflow-hidden border border-brand-border/60 shadow-2xl glassmorphism p-3">
             <div class="w-full h-full rounded-xl overflow-hidden relative group">
-              <img src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&q=80&w=1200" alt="Camera lens" class="w-full h-full object-cover object-center filter grayscale contrast-125 transition-transform duration-700 group-hover:scale-110">
+              <img src="490533669_10038372556195633_7906540894723213669_n.jpg" alt="Mostafa Khirallah Portfolio" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
               <div class="absolute inset-0 bg-gradient-to-t from-brand-obsidian via-brand-obsidian/20 to-transparent"></div>
               <div class="absolute bottom-6 right-6 left-6 text-right">
                 <p class="text-xs text-brand-gold font-mono">NEW SESSION PREVIEW</p>
@@ -1293,12 +1293,25 @@
 
     function handleContactSubmit(e) {
       e.preventDefault();
-      showToast('جاري إرسال طلب الحجز الخاص بك إلى المصور...', 'info');
+      
+      const name = document.getElementById('contactName').value.trim();
+      const phone = document.getElementById('contactPhone').value.trim();
+      const subject = document.getElementById('contactSubject').value;
+      const message = document.getElementById('contactMessage').value.trim();
+      
+      let subjectText = "جلسة تصوير زفاف / خطوبة";
+      if (subject === 'portrait') subjectText = "جلسة تصوير بورتريه";
+      else if (subject === 'commercial') subjectText = "جلسة تصوير تجاري";
+      else if (subject === 'other') subjectText = "جلسة تصوير أخرى";
+      
+      const whatsappText = `مرحباً مصطفى، أود حجز جلسة تصوير.%0Aالاسم: ${encodeURIComponent(name)}%0Aالموبايل: ${encodeURIComponent(phone)}%0Aنوع الجلسة: ${encodeURIComponent(subjectText)}%0Aالتفاصيل: ${encodeURIComponent(message)}`;
+      
+      showToast('جاري توجيهك إلى واتساب لإرسال رسالتك...', 'info');
       
       setTimeout(() => {
-        showToast('تم إرسال رسالتك بنجاح! سيتواصل معك مصطفى خير الله قريباً لتأكيد الموعد.', 'success');
+        window.open(`https://wa.me/201117926177?text=${whatsappText}`, '_blank');
         e.target.reset();
-      }, 1500);
+      }, 1000);
     }
 
     // Secret route for admin login (/index.html#mosadmintafa)
