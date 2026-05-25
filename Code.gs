@@ -65,6 +65,9 @@ function doGet(e) {
     else if (action === 'adminCreateSession') {
       response = adminCreateSession(e.parameter.passcode, e.parameter.name, e.parameter.mobile, e.parameter.invoice, e.parameter.folderUrl, e.parameter.status);
     } 
+    else if (action === 'adminUpdateSession') {
+      response = adminUpdateSession(e.parameter.passcode, e.parameter.oldInvoice, e.parameter.name, e.parameter.mobile, e.parameter.invoice, e.parameter.folderUrl, e.parameter.status);
+    }
     else if (action === 'adminDeleteSession') {
       response = adminDeleteSession(e.parameter.passcode, e.parameter.invoice);
     }
@@ -480,5 +483,49 @@ function adminDeleteSession(passcode, invoiceNumber) {
     return { success: false, message: "لم يتم العثور على العميل بهذا الرقم من الفاتورة." };
   } catch (err) {
     return { success: false, message: "حدث خطأ: " + err.toString() };
+  }
+}
+
+/**
+ * Updates an existing client photoshoot session.
+ */
+function adminUpdateSession(passcode, oldInvoice, newName, newMobile, newInvoice, newFolderUrl, newStatus) {
+  if (!validateAdminPasscode(passcode)) {
+    return { success: false, message: "رمز المرور غير صحيح!" };
+  }
+  
+  try {
+    const ss = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = ss.getSheetByName(CLIENTS_SHEET_NAME);
+    const data = sheet.getDataRange().getValues();
+    const cleanOldInvoice = String(oldInvoice).trim().toUpperCase();
+    const cleanNewInvoice = String(newInvoice).trim().toUpperCase();
+    const cleanNewMobile = String(newMobile).replace(/\s+/g, '').trim();
+    
+    let editRowIndex = -1;
+    for (let i = 1; i < data.length; i++) {
+      const rowInvoice = String(data[i][2]).trim().toUpperCase();
+      if (rowInvoice === cleanOldInvoice) {
+        editRowIndex = i + 1; // 1-indexed row number
+      } else if (rowInvoice === cleanNewInvoice) {
+        return { success: false, message: "عذراً، رقم الفاتورة الجديد مسجل بالفعل لعميل آخر." };
+      }
+    }
+    
+    if (editRowIndex === -1) {
+      return { success: false, message: "لم يتم العثور على الجلسة لتعديلها." };
+    }
+    
+    // Update values
+    sheet.getRange(editRowIndex, 1).setValue(newName.trim());
+    sheet.getRange(editRowIndex, 2).setValue("'" + cleanNewMobile); // Force text format
+    sheet.getRange(editRowIndex, 3).setValue(cleanNewInvoice);
+    sheet.getRange(editRowIndex, 4).setValue(newFolderUrl.trim());
+    sheet.getRange(editRowIndex, 5).setValue(newStatus);
+    
+    return { success: true, message: "تم تحديث بيانات العميل بنجاح!" };
+    
+  } catch (err) {
+    return { success: false, message: "حدث خطأ أثناء تعديل بيانات العميل: " + err.toString() };
   }
 }
